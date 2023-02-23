@@ -60,9 +60,9 @@ namespace IdentityApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(/* string code=null*/)
+        public IActionResult ResetPassword(string code = null)
         {
-            return /*code == null ? View("Error") :*/ View();
+            return code == null ? View("Error") : View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -76,7 +76,7 @@ namespace IdentityApp.Controllers
                     ModelState.AddModelError("Email", "User not found");
                     return View();
                 }
-                var result = await _userManager.ResetPasswordAsync(user, /*model.Code,*/ model.Password);
+                var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
                 if(result.Succeeded)
                 {
                     return RedirectToAction("ResetPasswordConfirmation");
